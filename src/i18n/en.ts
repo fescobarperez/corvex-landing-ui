@@ -16,7 +16,7 @@ const en: Dict = {
     tino: {
       title: 'TINO · Answers, quotes and sells at any hour',
       description:
-        'TINO is an AI sales assistant that talks to your customers on WhatsApp and on your website and builds quotes from your catalog.',
+        'TINO is an AI sales assistant that talks to your customers in their own language, on WhatsApp and on your website, and builds quotes from your catalog.',
     },
     notFound: { title: 'Page not found · Corvex', description: 'The page you are looking for does not exist.' },
   },
@@ -68,6 +68,7 @@ const en: Dict = {
         points: [
           'Talks to your customers on WhatsApp and on your website',
           'Builds quotes with your catalog and your prices',
+          'Speaks each customer’s language',
           'Hands the conversation to a sales rep when needed',
         ],
         cta: 'See TINO',
@@ -109,6 +110,10 @@ const en: Dict = {
       eyebrow: 'FAQ',
       title: 'What people usually ask us',
       items: [
+        {
+          q: 'Does TINO speak other languages?',
+          a: 'Yes, any language. It replies in the language customers write in, even if your catalog and settings are in Spanish.',
+        },
         {
           q: 'Can I use TINO without Stackline?',
           a: 'Yes. TINO can answer and collect details on its own; connected to Stackline, it also builds quotes with your catalog and prices.',
@@ -213,7 +218,23 @@ const en: Dict = {
   },
   tino: {
     titleParts: ['Answers, quotes and sells', 'at any hour.'],
-    status: 'online · 24/7',
+    status: 'online · 24/7 · any language',
+    languages: {
+      eyebrow: 'No language barriers',
+      titleParts: ['Speaks the language', 'of every customer.'],
+      lead: 'TINO detects the language customers write in and replies in that same language: Spanish, English, Portuguese, French, Chinese or any other. Your catalog and settings stay in Spanish; TINO does the translation.',
+      points: [
+        { t: 'Nothing to set up', d: 'No need to load your catalog in each language or turn anything on.' },
+        { t: 'Follows the customer', d: 'If the customer switches languages, TINO switches too.' },
+        { t: 'Your catalog, untranslated', d: 'Quotes are built with your usual products and prices.' },
+      ],
+      demo: [
+        { me: true, t: 'Hi! Can I get a quote for a wooden pergola?' },
+        { me: false, t: 'Of course! How big is the space? A photo helps too.' },
+        { me: true, t: 'Olá! Vocês fazem pérgolas sob medida?' },
+        { me: false, t: 'Olá! Sim, fazemos sob medida. Qual é o tamanho do espaço?' },
+      ],
+    },
     floats: [
       { t: 'Preliminary quote', s: 'sent as PDF' },
       { t: 'Rep notified', s: 'ready to review' },

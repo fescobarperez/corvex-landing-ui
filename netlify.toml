@@ -1,0 +1,12 @@
+# Netlify: el sitio sale de `npm run build` en dist/ (una carpeta por ruta).
+# Rutas inexistentes → página 404 prerenderizada, con código 404 real.
+[[redirects]]
+  from = "/*"
+  to = "/404/index.html"
+  status = 404
+
+# Archivos con hash en el nombre: caché de un año.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -14,7 +14,7 @@ const es = {
     tino: {
       title: 'TINO · Atiende, cotiza y vende a cualquier hora',
       description:
-        'TINO es un asistente de ventas con inteligencia artificial que conversa con tus clientes por WhatsApp y en tu página web y arma cotizaciones con tu catálogo.',
+        'TINO es un asistente de ventas con inteligencia artificial que conversa con tus clientes en su idioma, por WhatsApp y en tu página web, y arma cotizaciones con tu catálogo.',
     },
     notFound: { title: 'Página no encontrada · Corvex', description: 'La página que buscas no existe.' },
   },
@@ -66,6 +66,7 @@ const es = {
         points: [
           'Conversa con tus clientes por WhatsApp y en tu página web',
           'Arma cotizaciones con tu catálogo y tus precios',
+          'Atiende en el idioma de cada cliente',
           'Pasa la conversación a un asesor cuando hace falta',
         ],
         cta: 'Ver TINO',
@@ -107,6 +108,10 @@ const es = {
       eyebrow: 'Preguntas frecuentes',
       title: 'Lo que suelen preguntarnos',
       items: [
+        {
+          q: '¿TINO atiende en otros idiomas?',
+          a: 'Sí, en cualquier idioma. Responde en el idioma en que le escriben, aunque tu catálogo y tu configuración estén en español.',
+        },
         {
           q: '¿Puedo usar TINO sin Stackline?',
           a: 'Sí. TINO puede atender y tomar datos por su cuenta; conectado a Stackline, además arma cotizaciones con tu catálogo y precios.',
@@ -211,7 +216,23 @@ const es = {
   },
   tino: {
     titleParts: ['Atiende, cotiza y vende', 'a cualquier hora.'],
-    status: 'en línea · 24/7',
+    status: 'en línea · 24/7 · cualquier idioma',
+    languages: {
+      eyebrow: 'Sin barreras de idioma',
+      titleParts: ['Habla el idioma', 'de cada cliente.'],
+      lead: 'TINO detecta el idioma en que le escriben y responde en ese mismo idioma: español, inglés, portugués, francés, chino o el que sea. Tu catálogo y tu configuración se quedan en español; TINO hace la traducción.',
+      points: [
+        { t: 'Sin configurar nada', d: 'No hay que cargar el catálogo en cada idioma ni activar nada.' },
+        { t: 'Cambia con el cliente', d: 'Si el cliente pasa de un idioma a otro, TINO lo sigue.' },
+        { t: 'Tu catálogo, sin traducir', d: 'La cotización se arma con tus productos y precios de siempre.' },
+      ],
+      demo: [
+        { me: true, t: 'Hi! Can I get a quote for a wooden pergola?' },
+        { me: false, t: 'Of course! How big is the space? A photo helps too.' },
+        { me: true, t: 'Olá! Vocês fazem pérgolas sob medida?' },
+        { me: false, t: 'Olá! Sim, fazemos sob medida. Qual é o tamanho do espaço?' },
+      ],
+    },
     floats: [
       { t: 'Cotización preliminar', s: 'enviada en PDF' },
       { t: 'Asesor notificado', s: 'lista para revisar' },

@@ -2,7 +2,7 @@ import { Link } from '../components/Link'
 import { Seo } from '../components/Seo'
 import { TalkButton } from '../components/TalkButton'
 import { Arrow, Backdrop, FloatCard, GradTitle, SectionHead } from '../components/Ui'
-import { IconBolt, IconCamera, IconDoc, IconHistory, IconImage, IconLayers, IconUser, TinoBadge } from '../components/Icons'
+import { IconBolt, IconCamera, IconCheck, IconDoc, IconHistory, IconImage, IconLayers, IconUser, TinoBadge } from '../components/Icons'
 import { useI18n } from '../i18n'
 import pergola from '../assets/tino-pergola.webp'
 import s from './Tino.module.css'
@@ -77,6 +77,70 @@ function Snippet() {
   )
 }
 
+/** Saludos para la cinta de idiomas (decorativa). */
+const GREETINGS = [
+  ['Hola', 'ES'], ['Hello', 'EN'], ['Olá', 'PT'], ['Bonjour', 'FR'], ['Ciao', 'IT'], ['Hallo', 'DE'],
+  ['你好', 'ZH'], ['こんにちは', 'JA'], ['안녕하세요', 'KO'], ['Привет', 'RU'], ['مرحبا', 'AR'], ['Xin chào', 'VI'],
+  ['Namaste', 'HI'], ['Merhaba', 'TR'], ["Mba'éichapa", 'GN'], ['Saluton', 'EO'],
+]
+
+function GreetingRow({ reverse = false }: { reverse?: boolean }) {
+  const list = reverse ? [...GREETINGS].reverse() : GREETINGS
+  // La lista va dos veces para que la cinta se repita sin salto.
+  return (
+    <div className={`${s.row} ${reverse ? s.rowReverse : ''}`}>
+      {[...list, ...list].map(([w, code], i) => (
+        <span key={i} className={s.hello}>
+          {w}
+          <small>{code}</small>
+        </span>
+      ))}
+    </div>
+  )
+}
+
+/** TINO responde en el idioma del cliente. */
+function Languages() {
+  const { t } = useI18n()
+  const l = t.tino.languages
+  const tags = ['EN', 'EN', 'PT', 'PT']
+  return (
+    <section id="idiomas" className="section dark">
+      <div className="gridbg" aria-hidden="true" />
+      <div className={`wrap ${s.langGrid}`}>
+        <div className={s.langText}>
+          <SectionHead index={2} eyebrow={l.eyebrow} title={<GradTitle parts={l.titleParts} />} lead={l.lead} />
+          <ul className={`${s.langPoints} reveal-children`}>
+            {l.points.map((pt) => (
+              <li key={pt.t}>
+                <span className={s.langCheck}>
+                  <IconCheck />
+                </span>
+                <span>
+                  <strong>{pt.t}</strong>
+                  {pt.d}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={`${s.langChat} reveal`} aria-hidden="true">
+          {l.demo.map((m, i) => (
+            <div key={m.t} className={m.me ? s.langMe : s.langBot}>
+              <span className={s.langTag}>{m.me ? tags[i] : `TINO · ${tags[i]}`}</span>
+              {m.t}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={s.ribbon} aria-hidden="true">
+        <GreetingRow />
+        <GreetingRow reverse />
+      </div>
+    </section>
+  )
+}
+
 export default function Tino() {
   const { t, path } = useI18n()
   const p = t.tino
@@ -137,11 +201,13 @@ export default function Tino() {
         </div>
       </section>
 
+      <Languages />
+
       <section className="section section--alt">
         <div className={`wrap ${s.channels}`}>
           <div className={`reveal ${s.channelsText}`}>
             <span className="eyebrow">
-              <b>02</b> {p.channels.eyebrow}
+              <b>03</b> {p.channels.eyebrow}
             </span>
             <h2 className="h2">{p.channels.title}</h2>
             <p className="lead">{p.channels.lead}</p>
@@ -159,7 +225,7 @@ export default function Tino() {
 
       <section className="section">
         <div className="wrap stack">
-          <SectionHead index={3} eyebrow={p.control.eyebrow} title={p.control.title} />
+          <SectionHead index={4} eyebrow={p.control.eyebrow} title={p.control.title} />
           <div className="grid grid--3 reveal-children">
             {p.control.items.map((c, i) => (
               <div key={c.t} className="step">
