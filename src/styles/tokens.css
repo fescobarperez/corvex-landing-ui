@@ -1,0 +1,61 @@
+@property --ang {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+:root {
+  /* Marca */
+  --brand-ink: #14141a;
+  --brand-ink-deep: #0f0f14;
+  --brand-teal: #0f8c82;
+  --brand-teal-strong: #0b7a71; /* botones y texto teal sobre fondo claro (contraste AA) */
+  --brand-teal-hover: #095f58;
+  --brand-teal-bright: #19c2b1; /* brillos y acentos sobre fondo oscuro */
+  --brand-teal-text-dark: #4cc9bb; /* texto teal sobre fondo oscuro */
+  --brand-teal-soft: #dcefeb;
+  --brand-teal-line: #cfe6e2;
+  --brand-wine: #893149; /* Stackline */
+  --brand-wine-tint: #f2d6de;
+
+  /* Superficies y texto */
+  --bg: #fafaf8;
+  --bg-alt: #f3f2ee;
+  --surface: #ffffff;
+  --line: #e4e3e0;
+  --line-soft: #ecebe8;
+  --line-strong: #d9d8d4;
+  --text: #14141a;
+  --text-2: #55545a;
+  --text-3: #6b6a70;
+  --text-nav: #3d3c42;
+  --text-on-dark: #f3f2f0;
+  --text-on-dark-2: #a9a8ae;
+
+  /* Tipografía */
+  --font: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --fs-eyebrow: 12.5px;
+  --fs-body: 16px;
+  --fs-lead: 19px;
+  --fs-h1: clamp(40px, 5.6vw, 68px);
+  --fs-h2: clamp(30px, 3.6vw, 44px);
+  --fs-h3: 18px;
+
+  /* Espaciado y forma */
+  --wrap: 1200px;
+  --gutter: 32px;
+  --section: 112px;
+  --radius-sm: 14px;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (max-width: 560px) {
+  :root {
+    --gutter: 16px;
+    --section: 80px;
+    --fs-lead: 17px;
+  }
+}

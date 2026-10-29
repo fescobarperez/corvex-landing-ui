@@ -1,0 +1,87 @@
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  padding-top: 104px;
+  padding-bottom: 64px;
+}
+.heroText { display: flex; flex-direction: column; gap: 26px; }
+.heroText .lead { max-width: 560px; }
+.network { width: 100%; height: auto; }
+.stackRow { padding-bottom: 72px; }
+@media (max-width: 960px) {
+  .heroGrid { grid-template-columns: minmax(0, 1fr); padding-top: 64px; }
+  .network { max-width: 520px; margin: 0 auto; }
+}
+
+.product { gap: 18px; padding: 36px; }
+.productTop { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.productName { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+.productLine { margin: 0; font-size: 22px; line-height: 1.35; font-weight: 700; }
+.points { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: var(--text-2); font-size: 15.5px; line-height: 1.5; }
+.more { margin-top: auto; color: var(--brand-teal-strong); font-weight: 700; }
+.product:hover .more :global(.btn__arrow) { transform: translateX(4px); }
+@media (max-width: 560px) { .product { padding: 28px 24px; } .productLine { font-size: 19px; } }
+
+/* Flujo en el bloque oscuro */
+@keyframes runline { from { left: -22%; } to { left: 100%; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.flow { display: flex; flex-direction: column; gap: 22px; }
+.flowLine { position: relative; height: 2px; overflow: hidden; border-radius: 2px; background: rgba(255, 255, 255, 0.08); }
+.flowLine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -22%;
+  width: 22%;
+  background: linear-gradient(90deg, transparent, var(--brand-teal-bright), #e9fffc, var(--brand-teal-bright), transparent);
+  filter: drop-shadow(0 0 6px var(--brand-teal-bright));
+  animation: runline 3.2s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+.flowSteps { margin: 0; padding: 0; list-style: none; }
+.glass {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s ease, transform 0.3s var(--ease-out);
+}
+.glass:hover { border-color: rgba(76, 201, 187, 0.5); transform: translateY(-4px); }
+.glassTag { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--brand-teal-text-dark); }
+.glassTag i { width: 9px; height: 9px; border-radius: 50%; background: var(--brand-teal-bright); box-shadow: 0 0 0 4px rgba(25, 194, 177, 0.15), 0 0 14px var(--brand-teal-bright); animation: blink 3.2s ease-in-out infinite; }
+.glassTitle { margin: 0; font-size: var(--fs-h3); font-weight: 700; color: #fff; }
+.glassText { margin: 0; font-size: 15px; line-height: 1.6; color: var(--text-on-dark-2); }
+
+.faq { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; }
+.faqHead { align-self: start; }
+@media (max-width: 960px) { .faq { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+
+/* Contacto: texto + atajo al chat a la izquierda, formulario a la derecha */
+.contact { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+.contactText { display: flex; flex-direction: column; gap: 32px; position: sticky; top: 104px; }
+.chatCard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px 16px;
+  align-items: center;
+  padding: 22px;
+  border-radius: var(--radius);
+  color: var(--text-on-dark);
+  background: radial-gradient(80% 120% at 100% 0%, rgba(15, 140, 130, 0.35), transparent 60%), var(--brand-ink-deep);
+  border: 1px solid #23232b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.chatCard > :global(.btn) { grid-column: 1 / -1; justify-self: start; }
+.chatCopy { display: flex; flex-direction: column; gap: 4px; }
+.chatTitle { margin: 0; font-size: 17px; font-weight: 700; color: #fff; }
+.chatText { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-on-dark-2); }
+@media (max-width: 960px) {
+  .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .contactText { position: static; }
+}

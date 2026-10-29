@@ -1,0 +1,14 @@
+.heroInner { display: flex; flex-direction: column; gap: 64px; padding-top: 96px; padding-bottom: 56px; }
+.heroText { display: flex; flex-direction: column; gap: 22px; max-width: 860px; }
+.heroText .lead { max-width: 660px; }
+.stage { position: relative; }
+.f1 { left: -28px; top: 22%; }
+.f2 { right: -24px; top: 48%; }
+.f3 { left: 8%; bottom: -22px; }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+.splitText { display: flex; flex-direction: column; gap: 20px; }
+@media (max-width: 960px) { .split { grid-template-columns: minmax(0, 1fr); } }
+
+.withTino { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px; }
+.withTino > :first-child { flex: 1 1 520px; }

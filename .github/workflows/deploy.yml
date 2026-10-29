@@ -1,0 +1,60 @@
+name: Deploy landing
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Solo este proyecto: compila la landing y la sube a S3; no toca otros servicios.
+concurrency:
+  group: deploy-landing
+  cancel-in-progress: true
+
+permissions:
+  id-token: write # OIDC con AWS, sin llaves guardadas en GitHub
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      VITE_SITE_URL: ${{ vars.SITE_URL }}
+      VITE_TINO_WIDGET_URL: ${{ vars.TINO_WIDGET_URL }}
+      VITE_TINO_WIDGET_KEY: ${{ vars.TINO_WIDGET_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Subir a S3
+        env:
+          BUCKET: ${{ vars.S3_BUCKET }}
+        run: |
+          # Archivos con hash en el nombre: caché de un año
+          aws s3 sync dist/assets "s3://$BUCKET/assets" --delete \
+            --cache-control "public, max-age=31536000, immutable"
+          # HTML: siempre se revalida para que el cambio se vea al publicar
+          aws s3 sync dist "s3://$BUCKET" --delete --exclude "assets/*" --exclude ".vite/*" \
+            --exclude "*" --include "*.html" \
+            --cache-control "public, max-age=0, must-revalidate" --content-type "text/html; charset=utf-8"
+          # Resto (favicon, sitemap, robots, datos del prerender)
+          aws s3 sync dist "s3://$BUCKET" --delete --exclude "assets/*" --exclude ".vite/*" --exclude "*.html" \
+            --cache-control "public, max-age=3600"
+
+      - name: Invalidar CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"
