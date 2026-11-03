@@ -1,14 +1,44 @@
+import { useState } from 'react'
 import { Link } from '../components/Link'
 import { Seo } from '../components/Seo'
 import { TalkButton } from '../components/TalkButton'
 import { Arrow, Backdrop, BrowserFrame, FloatCard, GradTitle, SectionHead } from '../components/Ui'
-import { IconBox, IconCart, IconChart, IconCheck, IconDoc, IconLock, IconRuler, IconTruck, StacklineBadge } from '../components/Icons'
+import { IconBox, IconCheck, IconDoc, IconLock, StacklineBadge } from '../components/Icons'
 import { useI18n } from '../i18n'
 import shotList from '../assets/stackline-cotizaciones.webp'
 import shotDetail from '../assets/stackline-detalle.webp'
 import s from './Stackline.module.css'
 
-const moduleIcons = [IconCart, IconDoc, IconBox, IconTruck, IconRuler, IconChart]
+
+/** Catálogo de módulos con filtro por categoría. */
+function Modules() {
+  const { t } = useI18n()
+  const m = t.stackline.modules
+  const [filter, setFilter] = useState('todos')
+  const tagOf = (c: string) => m.tabs.find((x) => x.v === c)?.l ?? c
+  return (
+    <>
+      <div className={s.tabs} role="group" aria-label={m.filter}>
+        {m.tabs.map((tab) => (
+          <button key={tab.v} type="button" aria-pressed={filter === tab.v} onClick={() => setFilter(tab.v)}>
+            {tab.l}
+          </button>
+        ))}
+      </div>
+      <div className={s.mods}>
+        {m.items
+          .filter((it) => filter === 'todos' || it.c === filter)
+          .map((it) => (
+            <article key={`${filter}-${it.t}`} className={`card ${s.mod}`}>
+              <span className={`${s.cat} ${s[`cat_${it.c}`] ?? ''}`}>{tagOf(it.c)}</span>
+              <h3 className="card__title">{it.t}</h3>
+              <p className="card__text">{it.d}</p>
+            </article>
+          ))}
+      </div>
+    </>
+  )
+}
 
 export default function Stackline() {
   const { t, path } = useI18n()
@@ -54,29 +84,15 @@ export default function Stackline() {
             </BrowserFrame>
             <FloatCard className={s.f1} icon={<IconCheck />} color="var(--brand-teal-strong)" title={fel.t} sub={fel.s} />
             <FloatCard className={`float--2 ${s.f2}`} icon={<IconDoc />} color="var(--brand-wine)" title={quote.t} sub={quote.s} />
-            <FloatCard className={`float--3 ${s.f3}`} icon={<IconBox />} color="var(--brand-ink)" title={stock.t} sub={stock.s} />
+            <FloatCard className={`float--3 ${s.f3}`} icon={<IconBox />} color="var(--ink-3)" title={stock.t} sub={stock.s} />
           </div>
         </div>
       </section>
 
       <section id="modulos" className="section">
         <div className="wrap stack">
-          <SectionHead index={1} eyebrow={p.modules.eyebrow} title={p.modules.title} lead={p.modules.lead} wine />
-          <div className="grid grid--3 reveal-children">
-            {p.modules.items.map((m, i) => {
-              const Icon = moduleIcons[i]
-              return (
-                <div key={m.t} className="card">
-                  <span className="icon-box">
-                    <Icon />
-                  </span>
-                  <span className="idx">{String(i + 1).padStart(2, '0')}</span>
-                  <h3 className="card__title">{m.t}</h3>
-                  <p className="card__text">{m.d}</p>
-                </div>
-              )
-            })}
-          </div>
+          <SectionHead index={1} eyebrow={p.modules.eyebrow} title={<GradTitle parts={p.modules.titleParts} wine />} lead={p.modules.lead} wine />
+          <Modules />
         </div>
       </section>
 

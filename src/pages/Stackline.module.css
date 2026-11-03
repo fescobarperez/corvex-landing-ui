@@ -12,3 +12,28 @@
 
 .withTino { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px; }
 .withTino > :first-child { flex: 1 1 520px; }
+
+/* Catálogo de módulos con pestañas */
+@keyframes mod-in { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tabs button {
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--soft);
+  font: 500 14px/1 var(--font);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.tabs button:hover { border-color: var(--ivory); }
+.tabs button[aria-pressed='true'] { background: var(--ivory); border-color: var(--ivory); color: var(--ink); }
+.mods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: -24px; }
+.mod { animation: mod-in 0.4s var(--ease-out) both; }
+.cat { font: 500 11.5px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.cat_vender { color: var(--clay); }
+.cat_operar { color: var(--sky); }
+.cat_administrar { color: var(--olive); }
+.cat_ia { color: var(--teal); }
+@media (max-width: 900px) { .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .mods { grid-template-columns: minmax(0, 1fr); } }

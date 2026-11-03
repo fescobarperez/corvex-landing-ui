@@ -4,7 +4,6 @@ import { Link } from './Link'
 import { LogoMark } from './Logo'
 import { IconMenu } from './Icons'
 import { TalkButton } from './TalkButton'
-import { Arrow } from './Ui'
 import { useI18n, pathFor, type PageKey } from '../i18n'
 import s from './Header.module.css'
 
@@ -38,22 +37,51 @@ export function Header() {
   ]
 
   return (
-    <header className={s.header}>
-      <div className={`wrap ${s.bar}`}>
-        <Link to={path('home')} className={s.brand} aria-label={t.nav.home}>
-          <LogoMark />
-          <span>Corvex</span>
-        </Link>
+    <>
+      <header className={s.header}>
+        <div className={`wrap ${s.bar}`}>
+          <Link to={path('home')} className={s.brand} aria-label={t.nav.home}>
+            <LogoMark size={30} />
+            <span>Corvex</span>
+          </Link>
 
-        <nav className={`${s.nav} ${open ? s.navOpen : ''}`} aria-label={t.nav.main} id="menu-principal">
-          {links.map((l) => (
-            <Link key={l.to} to={l.to} className={s.navLink} aria-current={l.current ? 'page' : undefined}>
-              {l.label}
+          <nav className={`${s.nav} ${open ? s.navOpen : ''}`} aria-label={t.nav.main} id="menu-principal">
+            {links.map((l) => (
+              <Link key={l.to} to={l.to} className={s.navLink} aria-current={l.current ? 'page' : undefined}>
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className={s.right}>
+            <Link to={path('home', 'contacto')} className={`btn btn--ghost btn--sm ${s.sales}`}>
+              {t.nav.sales}
             </Link>
-          ))}
-        </nav>
+            <TalkButton to={cta.to} className={`btn btn--dark btn--sm ${s.cta}`}>
+              {cta.label}
+            </TalkButton>
+            <button
+              type="button"
+              className={s.menuBtn}
+              aria-expanded={open}
+              aria-controls="menu-principal"
+              aria-label={open ? t.nav.closeMenu : t.nav.menu}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <IconMenu open={open} />
+            </button>
+          </div>
+        </div>
+      </header>
 
-        <div className={s.right}>
+      {/* Subbarra: dónde estás y el idioma */}
+      <div className={s.sub}>
+        <div className={`wrap ${s.subInner}`}>
+          <div className={s.crumbs}>
+            <Link to={path('home')}>Corvex</Link>
+            <span aria-hidden="true">/</span>
+            <b>{t.nav.crumb[page]}</b>
+          </div>
           <div className={s.lang} role="group" aria-label={t.nav.language}>
             {(['es', 'en'] as const).map((l) => (
               <Link
@@ -68,21 +96,8 @@ export function Header() {
               </Link>
             ))}
           </div>
-          <TalkButton to={cta.to} className={`btn btn--dark btn--sm ${s.cta}`}>
-            {cta.label} <Arrow />
-          </TalkButton>
-          <button
-            type="button"
-            className={s.menuBtn}
-            aria-expanded={open}
-            aria-controls="menu-principal"
-            aria-label={open ? t.nav.closeMenu : t.nav.menu}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <IconMenu open={open} />
-          </button>
         </div>
       </div>
-    </header>
+    </>
   )
 }

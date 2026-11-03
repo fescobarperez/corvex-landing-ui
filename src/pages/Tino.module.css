@@ -31,10 +31,10 @@
 .who small { font-family: var(--mono); font-size: 11px; color: #a9c9c6; }
 .chat { display: flex; flex-direction: column; gap: 8px; padding: 14px 12px 18px; font-size: 13px; line-height: 1.45; }
 .me, .bot { max-width: 84%; padding: 8px 11px; }
-.me { align-self: flex-end; background: var(--brand-teal-strong); color: #fff; border-radius: 14px 14px 4px 14px; }
-.bot { align-self: flex-start; background: var(--surface); border-radius: 14px 14px 14px 4px; }
+.me { align-self: flex-end; background: var(--teal-ink); color: #fff; border-radius: 14px 14px 4px 14px; }
+.bot { align-self: flex-start; background: #fff; color: var(--ink); border-radius: 14px 14px 14px 4px; }
 .choices { align-self: flex-start; display: flex; flex-wrap: wrap; gap: 6px; }
-.choice { padding: 5px 10px; border: 1px solid var(--brand-teal-strong); border-radius: 999px; color: var(--brand-teal-strong); font-weight: 600; }
+.choice { padding: 5px 10px; border: 1px solid var(--teal-ink); border-radius: 999px; color: var(--teal-ink); font-weight: 600; }
 .media { display: flex; flex-direction: column; gap: 6px; padding: 6px; }
 .media img { width: 100%; height: auto; border-radius: 10px; }
 .media span { padding: 0 5px 3px; }
@@ -82,8 +82,8 @@
   font-size: 14.5px; line-height: 1.5;
 }
 .langMe, .langBot { position: relative; max-width: 86%; padding: 10px 14px; }
-.langMe { align-self: flex-end; background: var(--brand-teal-strong); color: #fff; border-radius: 16px 16px 4px 16px; }
-.langBot { align-self: flex-start; background: rgba(255, 255, 255, 0.92); color: var(--text); border-radius: 16px 16px 16px 4px; }
+.langMe { align-self: flex-end; background: var(--teal-ink); color: #fff; border-radius: 16px 16px 4px 16px; }
+.langBot { align-self: flex-start; background: var(--ivory); color: var(--ink); border-radius: 16px 16px 16px 4px; }
 .langTag { display: block; margin-bottom: 4px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; opacity: 0.7; }
 @media (max-width: 960px) { .langGrid { grid-template-columns: minmax(0, 1fr); gap: 36px; } }
 
@@ -104,6 +104,6 @@
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.04);
-  color: #fff; font-size: 17px; font-weight: 600; white-space: nowrap;
+  color: var(--ivory); font: 400 19px/1 var(--serif); white-space: nowrap;
 }
 .hello small { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--brand-teal-text-dark); }

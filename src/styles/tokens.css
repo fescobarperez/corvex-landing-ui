@@ -1,61 +1,80 @@
-@property --ang {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
+/*
+ * Corvex · línea editorial: tinta cálida y marfil, titulares en serif.
+ * El teal es el acento de Corvex; coral, azul y oliva son secundarios
+ * (etiquetas y categorías). El sitio es solo oscuro, a propósito.
+ */
 :root {
-  /* Marca */
-  --brand-ink: #14141a;
-  --brand-ink-deep: #0f0f14;
-  --brand-teal: #0f8c82;
-  --brand-teal-strong: #0b7a71; /* botones y texto teal sobre fondo claro (contraste AA) */
-  --brand-teal-hover: #095f58;
-  --brand-teal-bright: #19c2b1; /* brillos y acentos sobre fondo oscuro */
-  --brand-teal-text-dark: #4cc9bb; /* texto teal sobre fondo oscuro */
-  --brand-teal-soft: #dcefeb;
-  --brand-teal-line: #cfe6e2;
-  --brand-wine: #893149; /* Stackline */
-  --brand-wine-tint: #f2d6de;
+  color-scheme: dark;
 
-  /* Superficies y texto */
-  --bg: #fafaf8;
-  --bg-alt: #f3f2ee;
-  --surface: #ffffff;
-  --line: #e4e3e0;
-  --line-soft: #ecebe8;
-  --line-strong: #d9d8d4;
-  --text: #14141a;
-  --text-2: #55545a;
-  --text-3: #6b6a70;
-  --text-nav: #3d3c42;
-  --text-on-dark: #f3f2f0;
-  --text-on-dark-2: #a9a8ae;
+  /* Superficies */
+  --ink: #141413;
+  --ink-2: #1c1b19;
+  --ink-3: #262522;
+  --ink-deep: #0f0f0e;
+  --line: rgba(250, 249, 245, 0.12);
+  --line-2: rgba(250, 249, 245, 0.22);
+
+  /* Texto */
+  --ivory: #faf9f5;
+  --muted: #a8a59b;
+  --soft: #d6d3ca;
+  --dim: #75736c;
+
+  /* Marca y secundarios */
+  --teal: #19c2b1;
+  --teal-ink: #0b7a71;
+  --teal-deep: #0f8c82;
+  --clay: #d97757;
+  --oat: #e3dacc;
+  --sky: #6a9bcc;
+  --olive: #8a9a6b;
+  --wine: #c25a76;   /* Stackline sobre fondo oscuro */
+  --wine-deep: #893149;
+  --danger: #f2b8b5;
+
+  /* Alias que usan los componentes */
+  --bg: var(--ink);
+  --surface: var(--ink-2);
+  --text: var(--ivory);
+  --text-2: var(--muted);
+  --text-3: var(--dim);
+  --brand-teal: var(--teal-deep);
+  --brand-teal-strong: var(--teal);
+  --brand-teal-bright: var(--teal);
+  --brand-ink: var(--ink);
+  --brand-ink-deep: var(--ink-deep);
+  --brand-teal-text-dark: #4cc9bb;
+  --brand-teal-line: rgba(25, 194, 177, 0.35);
+  --brand-wine: var(--wine-deep);
+  --text-on-dark: var(--ivory);
+  --text-on-dark-2: var(--muted);
+  --line-strong: var(--line-2);
+  --line-soft: var(--line);
 
   /* Tipografía */
-  --font: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font: 'Instrument Sans', 'Helvetica Neue', Arial, system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --fs-eyebrow: 12.5px;
   --fs-body: 16px;
-  --fs-lead: 19px;
-  --fs-h1: clamp(40px, 5.6vw, 68px);
-  --fs-h2: clamp(30px, 3.6vw, 44px);
-  --fs-h3: 18px;
+  --fs-lead: 18px;
+  --fs-h1: clamp(42px, 4.9vw, 70px);
+  --fs-h2: clamp(34px, 4.4vw, 60px);
+  --fs-h3: 22px;
 
   /* Espaciado y forma */
-  --wrap: 1200px;
-  --gutter: 32px;
-  --section: 112px;
-  --radius-sm: 14px;
-  --radius: 20px;
-  --radius-lg: 28px;
+  --wrap: 1180px;
+  --gutter: 24px;
+  --section: 120px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 18px;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 @media (max-width: 560px) {
   :root {
     --gutter: 16px;
-    --section: 80px;
+    --section: 84px;
     --fs-lead: 17px;
   }
 }
