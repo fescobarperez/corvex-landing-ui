@@ -34,6 +34,7 @@ export function Header() {
     { to: path('tino'), label: t.nav.tino, current: page === 'tino' },
     { to: path('home', 'servicios'), label: t.nav.custom, current: false },
     { to: path('home', 'como'), label: t.nav.how, current: false },
+    { to: path('home', 'nosotros'), label: t.nav.about, current: false },
   ]
 
   return (

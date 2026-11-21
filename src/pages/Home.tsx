@@ -209,6 +209,61 @@ function FlowCarousel() {
   )
 }
 
+/** Nosotros: misión, visión, valores y hacia dónde vamos (sin cifras). */
+function About() {
+  const { t } = useI18n()
+  const a = t.home.about
+  // La primera oración de la misión va destacada; el resto, en tono secundario.
+  const corte = a.mission.indexOf('. ') + 1
+  const [first, rest] = corte > 0 ? [a.mission.slice(0, corte), a.mission.slice(corte)] : [a.mission, '']
+  return (
+    <section id="nosotros" className={`section ${s.about}`}>
+      <div className="wrap stack">
+        <SectionHead index={5} eyebrow={a.eyebrow} title={<GradTitle parts={a.titleParts} />} />
+
+        <div className={`${s.statement} reveal`}>
+          <h3 className={s.label}>{a.missionLabel}</h3>
+          <p className={s.mission}>
+            {first}
+            <span>{rest}</span>
+          </p>
+        </div>
+
+        <div className={`${s.statement} reveal`}>
+          <h3 className={s.label}>{a.visionLabel}</h3>
+          <p className={s.vision}>{a.vision}</p>
+        </div>
+
+        <div className={s.statement}>
+          <h3 className={`${s.label} reveal`}>{a.valuesLabel}</h3>
+          <ul className={`${s.values} reveal-children`}>
+            {a.values.map((v, i) => (
+              <li key={v.t}>
+                <span className="idx">{String(i + 1).padStart(2, '0')}</span>
+                <strong>{v.t}</strong>
+                <p>{v.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className={s.statement}>
+          <h3 className={`${s.label} reveal`}>{a.goalsLabel}</h3>
+          <div className={`${s.goals} reveal-children`}>
+            {a.goals.map((g, i) => (
+              <div key={g.t} className="card">
+                <span className={s.goalNum}>{String(i + 1).padStart(2, '0')}</span>
+                <h4 className="card__title">{g.t}</h4>
+                <p className="card__text">{g.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Home() {
   const { t, path } = useI18n()
   const h = t.home
@@ -346,9 +401,11 @@ export default function Home() {
         </div>
       </section>
 
+      <About />
+
       <section id="preguntas" className="section">
         <div className={`wrap ${s.faq}`}>
-          <SectionHead index={5} eyebrow={h.faq.eyebrow} title={h.faq.title} className={s.faqHead} />
+          <SectionHead index={6} eyebrow={h.faq.eyebrow} title={h.faq.title} className={s.faqHead} />
           <Faq items={h.faq.items} />
         </div>
       </section>
@@ -357,7 +414,7 @@ export default function Home() {
         <div className={s.glow} aria-hidden="true" />
         <div className={`wrap ${s.contact}`}>
           <div className={s.contactText}>
-            <SectionHead index={6} eyebrow={h.contact.eyebrow} title={h.contact.title} lead={h.contact.lead} />
+            <SectionHead index={7} eyebrow={h.contact.eyebrow} title={h.contact.title} lead={h.contact.lead} />
             <div className={`${s.chatCard} reveal`}>
               <TinoBadge size={44} />
               <div className={s.chatCopy}>

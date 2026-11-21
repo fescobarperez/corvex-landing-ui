@@ -10,7 +10,7 @@ export function Footer() {
     { title: f.cols.products, links: [[t.nav.stackline, path('stackline')], [t.nav.tino, path('tino')], [t.nav.custom, path('home', 'servicios')]] },
     { title: f.cols.stackline, links: [[f.links.pos, path('stackline', 'modulos')], [f.links.fel, path('stackline', 'modulos')], [f.links.inventory, path('stackline', 'modulos')], [f.links.quotes, path('stackline', 'modulos')]] },
     { title: f.cols.tino, links: [[f.links.whatsapp, path('tino', 'como')], [f.links.web, path('tino', 'como')], [f.links.languages, path('tino', 'idiomas')]] },
-    { title: f.cols.company, links: [[f.links.how, path('home', 'como')], [f.links.faq, path('home', 'preguntas')], [f.links.contact, path('home', 'contacto')]] },
+    { title: f.cols.company, links: [[f.links.about, path('home', 'nosotros')], [f.links.how, path('home', 'como')], [f.links.faq, path('home', 'preguntas')], [f.links.contact, path('home', 'contacto')]] },
   ]
   return (
     <footer className={s.footer}>

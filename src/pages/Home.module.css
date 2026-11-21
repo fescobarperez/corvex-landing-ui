@@ -215,3 +215,28 @@
   .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .contactText { position: static; }
 }
+
+/* ── Nosotros ── */
+.about { background: radial-gradient(50% 40% at 100% 0%, rgba(217, 119, 87, 0.08), transparent 70%), var(--ink); }
+.statement { display: grid; grid-template-columns: minmax(0, 0.28fr) minmax(0, 1fr); gap: 32px; padding-top: 32px; border-top: 1px solid var(--line); }
+.label { margin: 0; font: 500 12px/1.6 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--clay); }
+.mission { margin: 0; max-width: 46ch; font: 300 clamp(26px, 2.8vw, 38px)/1.25 var(--serif); letter-spacing: -0.02em; color: var(--ivory); }
+.mission span { color: var(--muted); }
+.vision { margin: 0; max-width: 52ch; font: 300 clamp(22px, 2.2vw, 30px)/1.3 var(--serif); letter-spacing: -0.015em; color: var(--oat); }
+.values { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; }
+.values li { display: flex; flex-direction: column; gap: 8px; }
+.values strong { font: 400 22px/1.15 var(--serif); letter-spacing: -0.01em; color: var(--ivory); }
+.values p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+.goals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.goalNum { font: 400 34px/1 var(--serif); font-style: italic; color: var(--teal); }
+@media (max-width: 1080px) {
+  .values { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .statement { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .goals { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .values { grid-template-columns: minmax(0, 1fr); }
+}
