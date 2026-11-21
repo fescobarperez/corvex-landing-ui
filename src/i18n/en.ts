@@ -78,7 +78,7 @@ const en: Dict = {
       chat: ['Hi, I’d like a quote for a pergola', 'Hi! I’m Tino. How big is the space?', '4 × 3 meters'],
     },
     stackLabel: 'Built with',
-    stack: ['AWS', 'FEL · SAT Guatemala', 'WhatsApp Business', 'Generative AI', 'Español · English'],
+    stack: ['AWS', 'FEL · SAT Guatemala', 'WhatsApp Business', 'Generative AI', 'Spanish, English and many more languages'],
     lead: 'We build custom systems and offer ready-to-use products: Stackline, to run your operation, and TINO, the assistant that answers and quotes for you in any language.',
     ctaProducts: 'Explore the products',
     ctaStackline: 'Discover Stackline',

@@ -1,124 +1,74 @@
-import { useEffect, useRef, useState, type RefObject } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from '../components/Link'
 import { Seo } from '../components/Seo'
 import { Faq } from '../components/Faq'
 import { ContactForm } from '../components/ContactForm'
 import { TalkButton } from '../components/TalkButton'
-import { Arrow, GradTitle, SectionHead } from '../components/Ui'
-import { IconChat, IconCode, IconCycle, IconDoc, IconLink, IconSpark, TinoBadge } from '../components/Icons'
+import { Arrow, BrowserFrame, GradTitle, SectionHead } from '../components/Ui'
+import { IconCheck, IconCode, IconCycle, IconDoc, IconLink, IconLock, IconSpark, TinoBadge } from '../components/Icons'
 import { useI18n } from '../i18n'
-import network from '../assets/network.svg'
 import shotList from '../assets/stackline-cotizaciones.webp'
 import shotDetail from '../assets/stackline-detalle.webp'
-import pergola from '../assets/tino-pergola.webp'
 import s from './Home.module.css'
 
 const SITE = (import.meta.env.VITE_SITE_URL ?? '').replace(/\/$/, '')
 const customIcons = [IconCode, IconLink, IconSpark, IconCycle]
 
-/**
- * Las piezas del collage se desplazan a distinto ritmo al hacer scroll y
- * siguen un poco al mouse. Solo en pantallas anchas y sin movimiento reducido.
- */
-function useParallax(ref: RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const root = ref.current
-    if (!root) return
-    const wide = window.matchMedia('(min-width: 721px)')
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const tiles = Array.from(root.querySelectorAll<HTMLElement>('[data-speed]'))
-    let mx = 0
-    let my = 0
-    let frame = 0
-    const paint = () => {
-      frame = 0
-      const active = wide.matches && !reduce.matches
-      const y = window.scrollY
-      for (const t of tiles) {
-        if (!active) {
-          t.style.transform = ''
-          continue
-        }
-        const k = Number(t.dataset.speed) || 0.2
-        t.style.transform = `translate3d(${(mx * k * 18).toFixed(1)}px, ${(-y * k + my * k * 14).toFixed(1)}px, 0)`
-      }
-    }
-    const ask = () => {
-      if (!frame) frame = requestAnimationFrame(paint)
-    }
-    const onMove = (e: PointerEvent) => {
-      mx = e.clientX / window.innerWidth - 0.5
-      my = e.clientY / window.innerHeight - 0.5
-      ask()
-    }
-    window.addEventListener('scroll', ask, { passive: true })
-    window.addEventListener('pointermove', onMove, { passive: true })
-    wide.addEventListener('change', ask)
-    paint()
-    return () => {
-      window.removeEventListener('scroll', ask)
-      window.removeEventListener('pointermove', onMove)
-      wide.removeEventListener('change', ask)
-      if (frame) cancelAnimationFrame(frame)
-    }
-  }, [ref])
+/** Conversación de TINO en una tarjeta (la misma interfaz del chat web). */
+function ChatCard({ msgs, quote, className = '' }: { msgs: string[]; quote?: string; className?: string }) {
+  const { t } = useI18n()
+  return (
+    <div className={`${s.chatCard2} ${className}`} aria-hidden="true">
+      <div className={s.chatHead}>
+        <TinoBadge size={32} />
+        <span>
+          <strong>TINO</strong>
+          <small>{t.tino.phone.online}</small>
+        </span>
+      </div>
+      <div className={`${s.chatBody} chat-seq`}>
+        {msgs.map((m, k) => (
+          <span key={m} className={k % 2 === 0 ? s.me : s.bot}>
+            {m}
+          </span>
+        ))}
+        {quote && (
+          <span className={s.quoteBubble}>
+            <IconDoc />
+            {quote}
+          </span>
+        )}
+      </div>
+    </div>
+  )
 }
 
-function Collage() {
+/** Hero: la pantalla real de Stackline y, encima, TINO conversando con un cliente. */
+function HeroArt() {
   const { t } = useI18n()
   const c = t.home.collage
-  const ref = useRef<HTMLDivElement>(null)
-  useParallax(ref)
   return (
-    <div className={s.collage} ref={ref}>
-      <figure className={`${s.tile} ${s.t1}`} data-speed="0.18">
+    <div className={`${s.heroArt} enter-late`}>
+      <BrowserFrame
+        className={s.heroShot}
+        label={
+          <>
+            <IconLock /> stackline
+          </>
+        }
+      >
         <img src={shotList} alt={c.list} width={1600} height={1000} />
-        <span className={s.badge} style={{ left: '47%', top: '28%' }} aria-hidden="true">
-          <IconDoc />
+      </BrowserFrame>
+      <ChatCard className={s.heroChat} msgs={c.chat} />
+      <div className={`float ${s.heroFloat}`} aria-hidden="true">
+        <span className="float__icon" style={{ background: 'var(--md-primary)' }}>
+          <IconCheck />
         </span>
-      </figure>
-      <div className={`${s.tile} ${s.t2}`} data-speed="0.32" aria-hidden="true">
-        <div className={s.chat}>
-          <span className={s.me}>{c.chat[0]}</span>
-          <span className={s.bot}>{c.chat[1]}</span>
-          <span className={s.me}>{c.chat[2]}</span>
-        </div>
-        <span className={`${s.badge} ${s.badgeSm}`} style={{ right: 12, bottom: 12 }}>
-          <IconChat size={20} />
+        <span>
+          {c.approved}
+          <small>Stackline</small>
         </span>
       </div>
-      <figure className={`${s.tile} ${s.t3}`} data-speed="0.12">
-        <img src={shotDetail} alt={c.detail} width={1200} height={736} />
-        <span className={s.cap}>{c.approved}</span>
-      </figure>
-      <figure className={`${s.tile} ${s.t4}`} data-speed="0.24">
-        <div className={s.netpane}>
-          <img src={network} alt="" width={560} height={400} />
-        </div>
-        <span className={s.badge} style={{ left: '44%', top: '44%' }} aria-hidden="true">
-          <IconLink />
-        </span>
-        <span className={s.cap}>{c.integrations}</span>
-      </figure>
-      <div className={`${s.tile} ${s.t5}`} data-speed="0.36" aria-hidden="true">
-        <pre className={s.term}>
-          <span className={s.c}>{'<!-- TINO -->'}</span>
-          {'\n'}
-          <span className={s.p}>{'<script'}</span> <span className={s.k}>src</span>=<span className={s.s}>"…/widget.js"</span>
-          {'\n  '}
-          <span className={s.k}>data-key</span>=<span className={s.s}>"wk_…"</span>
-          {'\n  '}
-          <span className={s.k}>async</span>
-          <span className={s.p}>{'></script>'}</span>
-        </pre>
-        <span className={`${s.badge} ${s.badgeSm}`} style={{ right: 12, top: 12 }}>
-          <IconCode />
-        </span>
-      </div>
-      <figure className={`${s.tile} ${s.t6}`} data-speed="0.2">
-        <img src={pergola} alt="" width={640} height={427} />
-        <span className={s.cap}>{c.illustration}</span>
-      </figure>
     </div>
   )
 }
@@ -158,13 +108,12 @@ function FlowCarousel() {
   }
   const step = f.steps[i]
   const media = [
-    <div key="chat" className={`${s.chat} ${s.chatLg}`}>
-      <span className={s.me}>{t.tino.phone.msgs[0].t}</span>
-      <span className={s.bot}>{t.tino.phone.msgs[1].t}</span>
-      <span className={s.me}>{t.tino.phone.msgs[2].t}</span>
-      <span className={s.bot}>{t.tino.phone.msgs[3].t}</span>
+    <div key="chat" className={s.stageChat}>
+      <ChatCard msgs={t.tino.phone.msgs.slice(0, 4).map((m) => m.t)} />
     </div>,
-    <img key="pergola" src={pergola} alt="" />,
+    <div key="quote" className={s.stageChat}>
+      <ChatCard msgs={t.home.collage.chat} quote={t.home.collage.approved} />
+    </div>,
     <img key="detail" src={shotDetail} alt="" />,
     <img key="list" src={shotList} alt="" />,
   ]
@@ -279,21 +228,38 @@ export default function Home() {
 
   const products = [
     { key: 'stackline', to: path('stackline'), p: h.products.stackline, cls: s.pStack, art: <img src={shotList} alt="" /> },
-    { key: 'tino', to: path('tino'), p: h.products.tino, cls: s.pTino, art: <img src={pergola} alt="" /> },
+    {
+      key: 'tino',
+      to: path('tino'),
+      p: h.products.tino,
+      cls: s.pTino,
+      art: (
+        <div className={s.artChat}>
+          {h.collage.chat.map((m, k) => (
+            <span key={m} className={k % 2 === 0 ? s.me : s.bot}>
+              {m}
+            </span>
+          ))}
+        </div>
+      ),
+    },
     {
       key: 'custom',
       to: path('home', 'contacto'),
       p: h.products.custom,
       cls: s.pCustom,
       art: (
-        <pre className={s.codeArt}>
-          <span className={s.c}>{'// pedidos de la tienda en línea'}</span>
-          {'\n'}
-          <span className={s.k}>await</span> stackline.ventas.crear({'{'}
-          {'\n  '}canal: <span className={s.s}>'tienda'</span>,{'\n  '}factura: <span className={s.s}>'FEL'</span>
-          {'\n'}
-          {'})'}
-        </pre>
+        <ul className={s.artList}>
+          {h.custom.items.map((it, i) => {
+            const Icon = customIcons[i]
+            return (
+              <li key={it.t}>
+                <Icon />
+                {it.t}
+              </li>
+            )
+          })}
+        </ul>
       ),
     },
   ]
@@ -302,28 +268,37 @@ export default function Home() {
     <>
       <Seo page="home" jsonLd={jsonLd} />
 
-      <section className={s.hero}>
-        <Collage />
-        <div className={s.heroCopy}>
-          <div className={`intro ${s.heroInner}`}>
+      <section className={`hero ${s.hero}`}>
+        <div className="gridbg" aria-hidden="true" />
+        <div className={`wrap ${s.heroGrid}`}>
+          <div className={`intro ${s.heroText}`}>
             <span className={s.heroEyebrow}>{h.eyebrow}</span>
-            <h1 className={s.heroTitle}>
+            <h1 className="h1">
               <GradTitle parts={h.titleParts} />
             </h1>
-            <p className={s.heroLead}>{h.lead}</p>
-            <div className={s.heroCtas}>
-              <Link to={path('home', 'productos')} className="btn btn--dark btn--lg">
+            <p className="lead">{h.lead}</p>
+            <div className="actions">
+              <Link to={path('home', 'productos')} className="btn btn--primary btn--lg">
                 {h.ctaProducts} <Arrow />
               </Link>
               <TalkButton to={path('home', 'contacto')} className="btn btn--ghost btn--lg">
                 {t.nav.talk}
               </TalkButton>
             </div>
+            <div className={s.trust}>
+              <span>{h.stackLabel}</span>
+              <ul>
+                {h.stack.map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
+            </div>
           </div>
+          <HeroArt />
         </div>
       </section>
 
-      <section id="productos" className="section">
+      <section id="productos" className={`section ${s.covers}`}>
         <div className="wrap stack">
           <SectionHead index={1} eyebrow={h.products.eyebrow} title={<GradTitle parts={h.products.titleParts} />} lead={h.products.lead} />
           <div className={`${s.products} reveal-children`}>
@@ -342,7 +317,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section--alt">
         <div className="wrap stack">
           <SectionHead index={2} eyebrow={h.flow.eyebrow} title={<GradTitle parts={h.flow.titleParts} />} lead={h.flow.lead} />
           <FlowCarousel />
@@ -369,19 +344,19 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className={s.marquee} aria-hidden="true">
-          <div className={s.track}>
-            {[...h.who.marquee, ...h.who.marquee].map(([name, tag], k) => (
-              <span key={k}>
+        <div className="wrap">
+          <ul className={`${s.capabilities} reveal-children`}>
+            {h.who.marquee.map(([name, tag]) => (
+              <li key={name}>
+                <small>{tag}</small>
                 {name}
-                <b>{tag}</b>
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <section id="servicios" className="section">
+      <section id="servicios" className="section section--alt">
         <div className="wrap stack">
           <SectionHead index={4} eyebrow={h.custom.eyebrow} title={h.custom.title} />
           <div className="grid grid--4 reveal-children">
@@ -403,7 +378,7 @@ export default function Home() {
 
       <About />
 
-      <section id="preguntas" className="section">
+      <section id="preguntas" className="section section--alt">
         <div className={`wrap ${s.faq}`}>
           <SectionHead index={6} eyebrow={h.faq.eyebrow} title={h.faq.title} className={s.faqHead} />
           <Faq items={h.faq.items} />

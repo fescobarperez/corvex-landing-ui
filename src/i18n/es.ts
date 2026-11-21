@@ -76,7 +76,7 @@ const es = {
       chat: ['Hola, quiero cotizar una pérgola', '¡Hola! Soy Tino. ¿Qué medidas tiene el espacio?', '4 × 3 metros'],
     },
     stackLabel: 'Construido con',
-    stack: ['AWS', 'FEL · SAT Guatemala', 'WhatsApp Business', 'IA generativa', 'Español · English'],
+    stack: ['AWS', 'FEL · SAT Guatemala', 'WhatsApp Business', 'IA generativa', 'Español, inglés y muchos idiomas más'],
     lead: 'Construimos sistemas a la medida y ofrecemos productos listos para usar: Stackline, para administrar tu operación, y TINO, el asistente que atiende y cotiza por ti en cualquier idioma.',
     ctaProducts: 'Conoce los productos',
     ctaStackline: 'Conoce Stackline',

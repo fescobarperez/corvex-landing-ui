@@ -4,7 +4,6 @@ import { TalkButton } from '../components/TalkButton'
 import { Arrow, Backdrop, FloatCard, GradTitle, SectionHead } from '../components/Ui'
 import { IconBolt, IconCamera, IconCheck, IconDoc, IconHistory, IconImage, IconLayers, IconUser, TinoBadge } from '../components/Icons'
 import { useI18n } from '../i18n'
-import pergola from '../assets/tino-pergola.webp'
 import s from './Tino.module.css'
 
 const capIcons = [IconBolt, IconDoc, IconCamera, IconImage, IconLayers, IconHistory]
@@ -35,10 +34,6 @@ function Phone() {
                 {c}
               </span>
             ))}
-          </span>
-          <span className={`${s.bot} ${s.media}`}>
-            <img src={pergola} alt="" width={640} height={427} />
-            <span>{ph.imageCaption}</span>
           </span>
         </div>
       </div>

@@ -55,6 +55,20 @@ export function Header() {
           </nav>
 
           <div className={s.right}>
+            <div className={s.lang} role="group" aria-label={t.nav.language}>
+              {(['es', 'en'] as const).map((l) => (
+                <Link
+                  key={l}
+                  to={pathFor(l, page)}
+                  className={s.langBtn}
+                  aria-current={l === lang ? 'true' : undefined}
+                  hrefLang={l}
+                  lang={l}
+                >
+                  {l.toUpperCase()}
+                </Link>
+              ))}
+            </div>
             <Link to={path('home', 'contacto')} className={`btn btn--ghost btn--sm ${s.sales}`}>
               {t.nav.sales}
             </Link>
@@ -74,31 +88,6 @@ export function Header() {
           </div>
         </div>
       </header>
-
-      {/* Subbarra: dónde estás y el idioma */}
-      <div className={s.sub}>
-        <div className={`wrap ${s.subInner}`}>
-          <div className={s.crumbs}>
-            <Link to={path('home')}>Corvex</Link>
-            <span aria-hidden="true">/</span>
-            <b>{t.nav.crumb[page]}</b>
-          </div>
-          <div className={s.lang} role="group" aria-label={t.nav.language}>
-            {(['es', 'en'] as const).map((l) => (
-              <Link
-                key={l}
-                to={pathFor(l, page)}
-                className={s.langBtn}
-                aria-current={l === lang ? 'true' : undefined}
-                hrefLang={l}
-                lang={l}
-              >
-                {l.toUpperCase()}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
     </>
   )
 }

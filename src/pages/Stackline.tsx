@@ -84,7 +84,7 @@ export default function Stackline() {
             </BrowserFrame>
             <FloatCard className={s.f1} icon={<IconCheck />} color="var(--brand-teal-strong)" title={fel.t} sub={fel.s} />
             <FloatCard className={`float--2 ${s.f2}`} icon={<IconDoc />} color="var(--brand-wine)" title={quote.t} sub={quote.s} />
-            <FloatCard className={`float--3 ${s.f3}`} icon={<IconBox />} color="var(--ink-3)" title={stock.t} sub={stock.s} />
+            <FloatCard className={`float--3 ${s.f3}`} icon={<IconBox />} color="var(--md-tertiary)" title={stock.t} sub={stock.s} />
           </div>
         </div>
       </section>
